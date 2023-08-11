@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 const regexFuncLine = /func\s*\([^)]*\).*/;
 const regexErrorLine = /\w+,\s+\w+\s+:=\s+.*\)/
 const regexFuncName = /\)\s*\w+\s*\(/
-const regexReturnParams = /\((?:[\w+,\*,\[,\], \.](?:,\s*)?)+\s*\)\s*\{/
+const regexReturnParams = /(?:[\w+,*\[\],\.](?:,\s*)?)+\s*\)\s*\{|(?:[\w+,*\[\],\.](?:,\s*)?)+\s*\{/
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('errorhandlergenerator.errh', () => {
@@ -212,3 +212,5 @@ function getPackageNameByReciverName(reciverName: string): string {
 // если не сервисная делаем обработку
 
 // вероятно, если в функции будет анонимная функция, то все обработка ошибок ниже анонимной функции не сработают корректно
+
+// если на репо уровне один возвращаемый параметр, то в ретурн она не обрабатывается
